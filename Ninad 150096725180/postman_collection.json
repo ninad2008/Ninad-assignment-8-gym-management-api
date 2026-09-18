@@ -1,0 +1,235 @@
+{
+  "info": {
+    "_postman_id": "gym-api-assignment-08",
+    "name": "Gym & Fitness Club Management API (Assignment 08)",
+    "description": "Comprehensive Postman test suite for Assignment 08 covering Authentication, Class Bookings, Capacity Limits, and Membership Lifecycle.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Authentication",
+      "item": [
+        {
+          "name": "Register Member (1 Month)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"fit_sam\",\n  \"email\": \"sam@fit.com\",\n  \"password\": \"mypassword\",\n  \"membershipTier\": \"Gold\",\n  \"durationMonths\": 1,\n  \"emergencyContact\": \"+1-555-0199\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/auth/register",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "Login Member",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"fit_sam\",\n  \"password\": \"mypassword\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/auth/login",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Get Profile & Remaining Days",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/auth/me",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "auth", "me"]
+            }
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/auth/logout",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "auth", "logout"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Fitness Classes",
+      "item": [
+        {
+          "name": "Get All Upcoming Classes",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/classes",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "classes"]
+            }
+          }
+        },
+        {
+          "name": "Filter Classes by Trainer",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/classes?trainer=Marcus",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "classes"],
+              "query": [
+                {
+                  "key": "trainer",
+                  "value": "Marcus"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Class (Capacity 2)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"HIIT Bootcamp\",\n  \"trainerName\": \"Marcus Vance\",\n  \"scheduleDate\": \"2026-04-15T09:00:00Z\",\n  \"durationMinutes\": 45,\n  \"maxCapacity\": 2\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/classes",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "classes"]
+            }
+          }
+        },
+        {
+          "name": "Get Class By ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/classes/{{classId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "classes", "{{classId}}"]
+            }
+          }
+        },
+        {
+          "name": "Book Class",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/classes/{{classId}}/book",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "classes", "{{classId}}", "book"]
+            }
+          }
+        },
+        {
+          "name": "Cancel Class Booking",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/classes/{{classId}}/cancel",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "classes", "{{classId}}", "cancel"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Membership Management",
+      "item": [
+        {
+          "name": "Get Expired Members",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/members/expired",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "members", "expired"]
+            }
+          }
+        },
+        {
+          "name": "Renew Membership",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"additionalMonths\": 6,\n  \"tier\": \"Platinum\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/members/{{userId}}/renew",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "members", "{{userId}}", "renew"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
